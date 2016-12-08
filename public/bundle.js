@@ -27152,14 +27152,33 @@
 	
 	var React = __webpack_require__(8);
 	
+	var TodoList = __webpack_require__(253);
+	
 	var TodoApp = React.createClass({
 	  displayName: 'TodoApp',
 	
+	  getInitialState: function getInitialState() {
+	    return {
+	      todos: [{
+	        id: 1,
+	        text: 'L React'
+	      }, {
+	        id: 2,
+	        text: 'L Redux'
+	      }, {
+	        id: 3,
+	        text: 'React Native'
+	      }]
+	    };
+	  },
+	
 	  render: function render() {
+	    var todos = this.state.todos;
+	
 	    return React.createElement(
 	      'div',
 	      null,
-	      'Todo Component'
+	      React.createElement(TodoList, { todos: todos })
 	    );
 	  }
 	});
@@ -27515,6 +27534,72 @@
 			URL.revokeObjectURL(oldSrc);
 	}
 
+
+/***/ },
+/* 253 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
+	
+	var React = __webpack_require__(8);
+	
+	var TodoItem = __webpack_require__(254);
+	
+	var TodoList = React.createClass({
+	  displayName: 'TodoList',
+	
+	  render: function render() {
+	    var todos = this.props.todos;
+	
+	    var renderTodos = function renderTodos() {
+	      return todos.map(function (todo) {
+	        return React.createElement(TodoItem, _extends({ key: todo.id }, todo));
+	      });
+	    };
+	
+	    return React.createElement(
+	      'div',
+	      null,
+	      renderTodos()
+	    );
+	  }
+	});
+	
+	module.exports = TodoList;
+
+/***/ },
+/* 254 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	var React = __webpack_require__(8);
+	
+	var TodoItem = React.createClass({
+	  displayName: 'TodoItem',
+	
+	  render: function render() {
+	    var _props = this.props,
+	        id = _props.id,
+	        text = _props.text;
+	
+	    return React.createElement(
+	      'div',
+	      null,
+	      React.createElement(
+	        'p',
+	        null,
+	        id,
+	        '. ',
+	        text
+	      )
+	    );
+	  }
+	});
+	
+	module.exports = TodoItem;
 
 /***/ }
 /******/ ]);
