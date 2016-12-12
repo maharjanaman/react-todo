@@ -1,5 +1,6 @@
 const expect = require('expect');
 const df = require('deep-freeze-strict');
+const moment = require('moment');
 
 const reducers = require('reducers');
 
@@ -24,6 +25,37 @@ describe('Reducers', () => {
       var res = reducers.showCompletedReducer(df(false), df(action));
 
       expect(res).toEqual(true);
+    });
+  });
+
+  describe('todosReducer', () => {
+    it('should add new todo', () => {
+      var action = {
+        type: 'ADD_TODO',
+        text: 'Walk the dog'
+      };
+      var res = reducers.todosReducer(df([]), df(action));
+
+      expect(res.length).toEqual(1);
+      expect(res[0].text).toEqual(action.text);
+    });
+
+    it('should toggle todo', () => {
+      var action = {
+        type: 'TOGGLE_TODO',
+        id: 2
+      };
+      var testTodos = [{
+        id: 2,
+        text: 'Test todo',
+        completed: true,
+        createdAt: 123,
+        completedAt: 128
+      }];
+      var res = reducers.todosReducer(df(testTodos), df(action));
+
+      expect(res[0].completed).toEqual(false);
+      expect(res[0].completedAt).toEqual(undefined);
     });
   });
 });
