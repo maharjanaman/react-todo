@@ -29179,15 +29179,16 @@
 	        showCompleted = _props.showCompleted,
 	        searchText = _props.searchText;
 	
+	    var filteredTodos = TodoApi.filterTodos(todos, showCompleted, searchText);
 	    var renderTodos = function renderTodos() {
-	      if (todos.length === 0) {
+	      if (filteredTodos.length === 0) {
 	        return React.createElement(
 	          'p',
 	          { className: 'container__message' },
 	          'Nothing To Do'
 	        );
 	      }
-	      return TodoApi.filterTodos(todos, showCompleted, searchText).map(function (todo) {
+	      return filteredTodos.map(function (todo) {
 	        return React.createElement(_TodoItem2.default, _extends({ key: todo.id }, todo));
 	      });
 	    };
